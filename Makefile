@@ -1,4 +1,6 @@
 GOCMD=go
 
-all:
-	$(GOCMD) run main.go
+all: build
+	./bootleg-fs
+build:
+	$(GOCMD) build
