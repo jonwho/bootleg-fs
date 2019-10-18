@@ -59,7 +59,12 @@ func main() {
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "index")
+	t, err := template.ParseFiles("templates/layout.html", "templates/index.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	t.ExecuteTemplate(w, "layout", "")
 }
 
 func handlePing(w http.ResponseWriter, r *http.Request) {

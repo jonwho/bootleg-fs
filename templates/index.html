@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Bootleg FS</title>
-    <link rel="stylesheet" href="../static/css/app.css">
-  </head>
-  <body>
-    <div class="centered">
-      <h1>Upload a file!</h1>
-      <form
-        style="display: flex; flex-direction: column;"
-        enctype="multipart/form-data"
-        action="/upload"
-        method="post"
-        >
-        <input type="file" name="file" />
-        <input class="upload-button" type="submit" value="upload" />
-      </form>
-    </div>
-  </body>
-</html>
+{{ define "content" }}
+<div class="centered">
+  <h1>Upload a file!</h1>
+  <form
+    style="display: flex; flex-direction: column;"
+    enctype="multipart/form-data"
+    action="/upload"
+    method="post"
+    >
+    <input type="file" name="file" />
+    <input class="upload-button" type="submit" value="upload" />
+  </form>
+</div>
+{{ end }}
