@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	// "html/template"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -30,7 +30,8 @@ func main() {
 
 	cache = lrucache.New(3)
 
-	http.Handle("/", http.FileServer(http.Dir("./static")))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.HandleFunc("/", handleIndex)
 	http.HandleFunc("/ping", handlePing)
 	http.HandleFunc("/upload", handleUpload)
 	http.HandleFunc("/download", handleDownload)
@@ -55,6 +56,10 @@ func main() {
 	srv.Shutdown(ctx)
 	log.Println("Shutting down server...")
 	os.Exit(0)
+}
+
+func handleIndex(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "index")
 }
 
 func handlePing(w http.ResponseWriter, r *http.Request) {
@@ -146,4 +151,12 @@ func handleDownload(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("request not found"))
 	}
+}
+
+func renderTemplate(w http.ResponseWriter, tmpl string) {
+	t, err := template.ParseFiles("templates/" + tmpl + ".html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	t.Execute(w, nil)
 }

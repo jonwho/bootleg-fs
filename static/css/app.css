@@ -1,0 +1,18 @@
+.centered {
+  display: flex;
+  align-items:     center;
+  justify-content: center;
+  height:          100vh;
+  width:           100vw;
+  flex-direction:  column;
+}
+
+.file-button {
+  padding: 10px;
+  margin:  10px 0;
+}
+
+.upload-button {
+  padding: 10px;
+  margin:  10px 0;
+}
